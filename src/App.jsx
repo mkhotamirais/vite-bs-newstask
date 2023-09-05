@@ -41,13 +41,15 @@ const App = () => {
   // }
 
   function showData() {
+    searchRef.current.innerHTML = "Wait....";
     setKey("");
     axios
       .get(
-        `https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=2cc9e0c2c593864b3b4556466634e8fd`
+        `https://gnews.io/api/v4/${
+          key == "" ? "top-headlines?" : "search?q=" + key
+        }&lang=en&country=us&max=10&apikey=2cc9e0c2c593864b3b4556466634e8fd`
       )
       .then((res) => {
-        console.log(res);
         setData(res.data.articles);
       })
       .catch((err) => console.log(err))
@@ -59,6 +61,7 @@ const App = () => {
   useEffect(() => {
     showData();
   }, []);
+
   return (
     <>
       <MyNavbar />
