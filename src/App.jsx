@@ -22,16 +22,32 @@ const App = () => {
     showData();
   }
 
+  // function showData() {
+  //   searchRef.current.innerHTML = "Wait....";
+  //   setKey("");
+  //   axios
+  //     .get(
+  //       `https://newsapi.org/v2/${
+  //         key == "" ? "top-headlines?country=us&" : "everything?"
+  //       }apiKey=9c6131f2202d4dafb822bc76564f80c4&q=${key}`
+  //     )
+  //     .then((res) => {
+  //       setData(res.data.articles);
+  //     })
+  //     .catch((err) => console.log(err))
+  //     .finally(function () {
+  //       searchRef.current.innerHTML = "Search";
+  //     });
+  // }
+
   function showData() {
-    searchRef.current.innerHTML = "Wait....";
     setKey("");
     axios
       .get(
-        `https://newsapi.org/v2/${
-          key == "" ? "top-headlines?country=us&" : "everything?"
-        }apiKey=9c6131f2202d4dafb822bc76564f80c4&q=${key}`
+        `https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=2cc9e0c2c593864b3b4556466634e8fd`
       )
       .then((res) => {
+        console.log(res);
         setData(res.data.articles);
       })
       .catch((err) => console.log(err))
@@ -62,7 +78,7 @@ const App = () => {
           {data.map((item, i) => (
             <Col key={i}>
               <MyCard
-                img={item.urlToImage}
+                img={item.image}
                 title={item.title}
                 description={item.description}
                 author={item.author}
